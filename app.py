@@ -30,7 +30,7 @@ app.title=tabtitle
 
 ####### Layout of the app ########
 app.layout = html.Div([
-    html.H3('Choose a continuous variable for summary statistics:'),
+    html.H3('Choose a variable for summary statistics:'),
     dcc.Dropdown(
         id='dropdown',
         options=[{'label': i, 'value': i} for i in variables_list],
@@ -38,7 +38,7 @@ app.layout = html.Div([
     ),
     html.Br(),
     dcc.Graph(id='display-value'),
-    html.A('Code on Github', href=githublink),
+    html.A('Link to code on Github', href=githublink),
     html.Br(),
     html.A("Data Source", href=sourceurl),
 ])
@@ -47,6 +47,7 @@ app.layout = html.Div([
 ######### Interactive callbacks go here #########
 @app.callback(dash.dependencies.Output('display-value', 'figure'),
               [dash.dependencies.Input('dropdown', 'value')])
+
 def display_value(continuous_var):
     results=pd.DataFrame(df.groupby(['Cabin Class', 'Embarked'])[continuous_var].mean())
     # Create a grouped bar chart
